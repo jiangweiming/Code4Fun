@@ -77,6 +77,7 @@ public class WordSpliterExecutor
 						{
 							System.out.println("counting word=[" + word + "]");
 							//CAS乐观锁并发，不存在key-value对，致使出现死循环
+							/*
 							for (;;)
 							{
 								int count = this.counterMap.get(word) == null ? 0 : this.counterMap.get(word);
@@ -84,7 +85,7 @@ public class WordSpliterExecutor
 								if (this.counterMap.replace(word, count, next))
 									break;
 							}
-							/*
+							*/
 							//不良并发
 							synchronized (this.counterMap)
 							{
@@ -98,7 +99,6 @@ public class WordSpliterExecutor
 									this.counterMap.put(word, count + 1);
 								}
 							}
-							*/
 						}
 					}
 					else
